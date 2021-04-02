@@ -17,6 +17,10 @@ app.use(cors());
 
 const port = 5000;
 
+app.get('/', (req, res) => {
+    res,send('Congratulations!! Database is Working');
+})
+
 
 // const MongoClient = require('mongodb').MongoClient;
 // const uri = "mongodb+srv://<username>:<password>@cluster0.cwfp8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
@@ -48,7 +52,7 @@ client.connect(err => {
     })
 
 
-// delete korte hobe
+    // delete korte hobe
     app.get('/products', (req, res) => {
         productsCollection.find()
             .toArray((err, products) => {
@@ -66,7 +70,7 @@ client.connect(err => {
             })
     })
 
-    
+
     app.post('/addProduct', (req, res) => {
         const newProduct = req.body;
         console.log('adding new product', newProduct)
