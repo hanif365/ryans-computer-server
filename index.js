@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
-// const { ObjectID } = require('bson');
 const ObjectId = require('mongodb').ObjectId;
 require('dotenv').config()
 
@@ -18,12 +17,10 @@ app.use(cors());
 const port = 5000;
 
 app.get('/', (req, res) => {
-    res,send('Congratulations!! Database is Working');
+    res, send('Congratulations!! Database is Working');
 })
 
 
-// const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://<username>:<password>@cluster0.cwfp8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
     console.log('Connection error : ', err);
@@ -35,12 +32,10 @@ client.connect(err => {
         productsCollection.find()
             .toArray((err, products) => {
                 res.send(products)
-                // console.log('From database', products);
             })
     })
 
 
-    // challenge
     app.get('/products/:id', (req, res) => {
         console.log(req.params.id)
         productsCollection.find({ _id: ObjectId(req.params.id) })
@@ -51,13 +46,10 @@ client.connect(err => {
             })
     })
 
-
-    // delete korte hobe
     app.get('/products', (req, res) => {
         productsCollection.find()
             .toArray((err, products) => {
                 res.send(products)
-                // console.log('From database', products);
             })
     })
 
@@ -77,11 +69,7 @@ client.connect(err => {
         productsCollection.insertOne(newProduct)
             .then(result => {
                 console.log('Inserted Count : ', result.insertedCount);
-                // res.send(result.insertedCount > 0)
-                // new added
-
                 res.send('Success');
-                // res.redirect('/');
             })
     })
 
@@ -93,8 +81,6 @@ client.connect(err => {
             })
     })
 
-    // New code for order
-
     app.post('/addOrder', (req, res) => {
         const newOrder = req.body;
         console.log('adding new product', newOrder)
@@ -102,21 +88,10 @@ client.connect(err => {
             .then(result => {
                 console.log('Inserted Count : ', result.insertedCount);
                 res.send(result.insertedCount > 0)
-                // new added
-
-                // res.send('Success');
-                // res.redirect('/');
             })
     })
 
 
-    // app.delete('/delete/:id', (req, res) => {
-    //     const id = ObjectID(req.params.id);
-    //     console.log('Delete this', id);
-    //     productsCollection.findOneAndDelete({ _id: id })
-    //         .then(documents => res.send(!!documents.value))
-    // })
-    //   client.close();
 });
 
 
