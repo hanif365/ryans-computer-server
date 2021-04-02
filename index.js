@@ -17,13 +17,6 @@ app.use(cors());
 
 const port = 5000;
 
-// console.log(process.env.DB_USER)
-// console.log(process.env.DB_PASS)
-
-// app.get('/', (req, res) => {
-//   res.send('Hello World!!!')
-// })
-
 
 // const MongoClient = require('mongodb').MongoClient;
 // const uri = "mongodb+srv://<username>:<password>@cluster0.cwfp8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
@@ -34,7 +27,6 @@ client.connect(err => {
     const ordersCollection = client.db("ryansComputerStore").collection("orders");
     console.log('DB connected')
 
-    // Check again ***********************************
     app.get('/products', (req, res) => {
         productsCollection.find()
             .toArray((err, products) => {
@@ -65,17 +57,6 @@ client.connect(err => {
             })
     })
 
-    /////end
-
-    // app.get('/orders', (req, res) => {
-    //     // console.log(req.query.email);
-    //     ordersCollection.find()
-    //         .toArray((err, documents) => {
-    //             res.send(documents);
-    //         })
-    // })
-
-
 
     app.get('/orders', (req, res) => {
         console.log(req.query.email);
@@ -85,27 +66,7 @@ client.connect(err => {
             })
     })
 
-    //end
-
-
-    // New code
-    // app.get('/product/:id', (req, res) => {
-    //     // console.log(req.params.id);
-    //     productsCollection.find({ _id: ObjectId(req.params.id) })
-    //         .then(result => {
-    //             console.log(result);
-    //         })
-    // })
-
-
-    // for update
-    // app.get('/product/:id', (req, res) =>{
-    //     productsCollection.find({_id: ObjectId(req.params.id)})
-    //     .toArray((err, documents) =>{
-    //         res.send(documents[0]);
-    //     })
-    // })
-
+    
     app.post('/addProduct', (req, res) => {
         const newProduct = req.body;
         console.log('adding new product', newProduct)
